@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="body">
+<div class="wrapper-nav-bar">
+    <h1>EDM Analytic System</h1>
+</div>
+
+<div class="div-text-left">
+    <h5 class="center">List of ED machines</h5>
+    <div th:each="machine: ${machineList}" >
+        <a th:href="@{/edmMachine/{id}(id=${machine.getId()})}" th:text="${machine.getType()} + ' ' + ${machine.getModel()}+ ' ' + ${machine.getMark()}">machine</a>
+
+    </div>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+  <script>
+    const regexp = /\p{Sc}/gum
+    const str = '$10 is 650Rubles'
+    let res = str.match(regexp)
+    console.log(res)
+  </script>
+</body>
+</html>
+<!--
+флаги
+g ищет все совпадения без развернутой информации
+mathAll() для полной инфы
+s делает точку значением любого символа табуляции и иных
+i регистронезависимость
+y для поиска на позиции заданной regexp.lastIndex = n
+u включает юникодные свойства $ и другие
+
+якорные флаги 
+m многострочный поиск
+-->

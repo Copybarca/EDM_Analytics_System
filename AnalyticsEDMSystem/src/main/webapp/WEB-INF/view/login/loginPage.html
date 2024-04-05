@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+
+</head>
+<body class="body">
+<div class="wrapper-nav-bar">
+    <h1>EDM Analytic System</h1>
+</div>
+<div class="center">
+    <div class="text">
+        <h2>Login page</h2>
+    </div>
+</div>
+
+
+<div class="center">
+    <div class="textColor">
+        <form action="">
+            <label for="login">Login: </label>
+            <input id ="login" class = "form-input">
+            <label for="password">Password: </label>
+            <input id ="password" class = "form-input">
+            <button id="sendAuthorizeForm" type ="submit" disabled="disabled" class="button">Login</button>
+        </form>
+    </div>
+</div>
+
+
+<script>
+    const sendButton = document.getElementById('sendAuthorizeForm');
+    const password = document.getElementById('password');
+    const login = document.getElementById('login');
+    let passCheck = false;
+    let loginCheck = false;
+    password.addEventListener('input',(e)=>{
+        const regexp = /^.{8,16}$/;
+        const str = e.target.value;
+        const result = regexp.test(str);
+
+        console.log(result);
+        if(result){
+            passCheck = true;
+            e.target.classList.remove('form-input_invalid');
+            e.target.classList.add('form-input_valid');
+        }else{
+            passCheck = false;
+            e.target.classList.remove('input_valid');
+            e.target.classList.add('form-input_invalid');
+        }
+        check();
+    })
+    login.addEventListener('input',(e)=>{
+        const regexp = /^.{2,20}$/;
+        const str = e.target.value;
+        const result = regexp.test(str);
+
+        console.log(result)
+        if(result){
+            loginCheck = true;
+            e.target.classList.remove('form-input_invalid');
+            e.target.classList.add('form-input_valid');
+        }else{
+            loginCheck = false;
+            e.target.classList.remove('input_valid');
+            e.target.classList.add('form-input_invalid');
+        }
+        check();
+    })
+    function check(){
+        if(loginCheck && passCheck){
+        sendButton.disabled ='';
+        }else{
+        sendButton.disabled ='disabled';
+        }
+    }
+
+
+</script>
+</body>
+</html>

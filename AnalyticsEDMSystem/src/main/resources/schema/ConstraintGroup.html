@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <script>
+        /*
+        const regexp = /[a-f\d]{2}(?<separator>[-:])(?:[a-f\d]{2}\k<separator>){4}[a-f\d]{2}/gi
+        const str = "IP-адрес Ethernet-адрес\n" +
+            "08:00:39:00:2F:C3 223.1.2.1\n" +
+            "08-00-5A-21-A7-22 223.1.2.3\n" +
+            "08:00:10:99:AC:54 223.1.2.4"
+
+        const result = Array.from(str.matchAll(regexp))
+        console.log(result)*/
+        const regexp = /(\w+)\s(\w+)/
+        const str = 'Hello world'
+
+        const result1= str.match(regexp)
+        const result2 =str.replace(regexp,"$2 $1")
+
+        console.log(result1)
+        console.log(result2)
+
+
+
+
+
+    </script>
+</body>
+</html>
+<!--
+?: скобочная группа исключенная из запоминания
+?<link name> объявление группы ссылкой
+\k<link name> ссылка
+replace()
+$& вставка всего совпадения
+$` вставка всего до совпадения
+$'
+-->

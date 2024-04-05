@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="body">
+
+<div class="wrapper-nav-bar">
+    <h1>EDM Analytic System</h1>
+</div>
+
+
+<div class="div-text-left">
+    <form th:method="POST" th:action="@{/edmMachine}" th:object="${machine}">
+
+        <div style="margin-bottom: 2px">
+            <label for="type">Enter type</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{type}" id="type" class="form-input">
+        </div>
+
+        <div style="margin-bottom: 2px">
+            <label for="model">Enter model</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{model}" id="model"class="form-input">
+        </div>
+
+        <div style="margin-bottom: 2px">
+            <label for="mark">Enter mark</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{mark}" id="mark" class="form-input">
+        </div>
+
+
+
+        <button type="submit" class="button">Add new erosion machine</button>
+
+    </form>
+</div>
+
+
+
+</body>
+</html>

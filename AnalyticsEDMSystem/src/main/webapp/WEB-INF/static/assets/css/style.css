@@ -1,0 +1,90 @@
+
+.text{
+    color: #202020;
+}
+.body{
+    min-width: 100%;
+    margin: 0 auto;
+}
+.wrapper-nav-bar {
+    color: #f1f1f1;
+    background-color: #1c4e80;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+}
+.center {
+    display: flex;
+    justify-content: center;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.div-text-left{
+    display: block;
+    float: left;
+    justify-content: left;
+    margin-top: 0.5rem;
+    margin-left: 10px;
+    margin-right: auto;
+    padding: 0.375rem 0.75rem;
+    width: fit-content;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+}
+.div-text-center{
+    display: block;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0.375rem 0.75rem;
+    width: fit-content;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+}
+.form-input{
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.375rem 0.75rem;
+    min-width: 250px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+}
+.form-input_valid{
+    border: 1px solid #28a745;
+
+}
+.form-input_invalid{
+    border: 1px solid #dc3545;
+
+}
+.button{
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    padding: 0.375rem 0.75rem;
+    min-width: 250px;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+    text-align: center;
+
+}
+.button:hover{
+    background: #7e909a;
+}
+.info-div-block{
+    float: left;
+    text-align: justify;
+    max-width: fit-content;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    outline: none;
+}

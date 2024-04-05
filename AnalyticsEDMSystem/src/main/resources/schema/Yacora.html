@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .form-input{
+            display: block;
+            margin-top: 0.5rem;
+            padding: 0.375rem 0.75rem;
+            min-width: 250px;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+            outline: none;
+        }
+        .form-input_valid{
+            border: 1px solid #28a745;
+
+        }
+        .form-input_invalid{
+            border: 1px solid #dc3545;
+
+        }
+    </style>
+</head>
+<body>
+<form action="">
+    <label for="password">Password: </label>
+    <input id ="password" class = "form-input">
+    
+</form>
+    <script>
+        const regexp = /\bam\b/g
+        const password = document.getElementById('password')
+        password.addEventListener('input',(e)=>{
+            const regexp = /^.{8,16}$/
+            const str = e.target.value
+            const result = regexp.test(str)
+
+            console.log(result)
+            if(result){
+                e.target.classList.remove('form-input_invalid')
+                e.target.classList.add('form-input_valid')
+            }else{
+                e.target.classList.remove('input_valid')
+                e.target.classList.add('form-input_invalid')
+            }
+        })
+
+    </script>
+</body>
+</html>
+<!-- 
+\b - граница между началом или концом текста и словом\ между не словом и словом
+\B противоположность \b - найдёт совпадение внутри слов
+\w - буквенные и пробельные символы
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ -->
