@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.naming.Binding;
 import javax.validation.Valid;
@@ -29,6 +26,12 @@ public class EDMController {
         model.addAttribute("machineList",edmDao.index());
         return"edmView/index";
     }
+    @GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model){
+        model.addAttribute("machine", edmDao.show(id));
+        return"edmView/show";
+
+    }
 
     @GetMapping("/new")
     public String newMachine(Model model){
@@ -41,6 +44,19 @@ public class EDMController {
             return"edmView/newMachine";
         }
         edmDao.save(machine);
+        return "redirect:/edmMachine";
+    }
+    @GetMapping("/{id}/edit")
+    public String edit(Model model, @PathVariable("id") int id){
+        model.addAttribute("machine", edmDao.show(id));
+        return"edmView/edit";
+    }
+    @PatchMapping("/{id}")
+    public String update(@ModelAttribute("machine")@Valid MachineEDM machine,BindingResult bindingResult,@PathVariable("id") int id){
+        if(bindingResult.hasErrors()){
+            return"edmView/edit";
+        }
+        edmDao.update(id,machine);
         return "redirect:/edmMachine";
     }
 }

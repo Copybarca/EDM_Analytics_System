@@ -16,7 +16,7 @@
 
 
 <div class="div-text-left">
-    <form th:method="POST" th:action="@{/edmMachine}" th:object="${machine}">
+    <form th:method="PATCH" th:action="@{/edmMachine/{id}(id=${machine.getId()})}" th:object="${machine}">
 
         <div style="margin-bottom: 2px">
             <label for="title">Enter model</label>
@@ -50,7 +50,7 @@
         </div>
         <div style="color:#ea6a47" th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}">Serial number errors</div>
 
-        <button type="submit" class="button">Add new erosion machine</button>
+        <button type="submit" class="button">Edit</button>
 
     </form>
     <form  th:method="GET" th:action="@{/edmMachine}">

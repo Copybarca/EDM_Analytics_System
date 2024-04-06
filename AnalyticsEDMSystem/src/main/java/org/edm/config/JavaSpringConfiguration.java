@@ -50,8 +50,10 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
         registry
                 .addResourceHandler(
                         "/assets/css/**",
+                        "/edmMachine/{d+}/assets/css/**",
                         "/edmMachine/assets/css/**")
                 .addResourceLocations(
+                        "/WEB-INF/static/assets/css/",
                         "/WEB-INF/static/assets/css/",
                         "/WEB-INF/static/assets/css/");
 

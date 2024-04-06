@@ -32,7 +32,7 @@ public class MachineEDMDAO {
     public void destroy(){
 
     }
-    public List<MachineEDM> index(){
+    public List<MachineEDM> index(){// вытягивает из бд все объекы данного типа
         List<MachineEDM> list= null;
 
         try{
@@ -55,11 +55,11 @@ public class MachineEDMDAO {
 
     }
 
-    public  void save(MachineEDM machineEDM){
+    public  void save(MachineEDM machineEDM){// сохраняет объект в бд
 
         try{
             session = factory.getCurrentSession();
-            MachineEDM edm = new MachineEDM(machineEDM.getType(), machineEDM.getModel(), machineEDM.getMark());
+            MachineEDM edm = new MachineEDM(machineEDM.getTitle(), machineEDM.getFirm(), machineEDM.getType(), machineEDM.getSerialNumber());
             session.beginTransaction();
             session.persist(edm);
             session.getTransaction().commit();
@@ -67,6 +67,39 @@ public class MachineEDMDAO {
             e.printStackTrace();
         }
 
+    }
+    public MachineEDM show(int id){//Вытягивает из бд данные для объекта и возвращает объект
+        MachineEDM machine = null;
+        try{
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+            machine = session.get(MachineEDM.class, id);
+
+            session.getTransaction().commit();
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        return machine;
+    }
+
+    public void update(int id, MachineEDM machine){
+        try{
+            session = factory.getCurrentSession();
+            session.beginTransaction();
+            MachineEDM machineToUpdate =session.get(MachineEDM.class, id);
+            machineToUpdate.setFirm(machine.getFirm());
+            machineToUpdate.setTitle(machineToUpdate.getTitle());
+            machineToUpdate.setType(machine.getType());
+            machineToUpdate.setSerialNumber(machine.getSerialNumber());
+
+            session.getTransaction().commit();
+
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
 

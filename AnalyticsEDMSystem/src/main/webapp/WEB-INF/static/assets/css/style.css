@@ -1,4 +1,11 @@
-
+.div-edm-list{
+    margin: 1px;
+    border: 1px solid #7e909a;
+    border-radius: 0.25rem;
+}
+.text-edm-list{
+    margin: 1px;
+}
 .text{
     color: #202020;
 }

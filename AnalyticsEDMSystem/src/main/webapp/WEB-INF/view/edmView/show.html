@@ -11,26 +11,23 @@
 </div>
 
 <div class="div-text-left">
-    <h5 class="center">List of ED machines</h5>
-    <div th:each="machine: ${machineList}" class = div-edm-list>
+    <h5 th:text="'The serial number of the machine  ' + ${machine.getSerialNumber()}" class="center">Serial number of the machine</h5>
+    <div class = div-edm-list>
 
-        <p th:text="'Serial number: ' + ${machine.getSerialNumber()}" class = text-edm-list>machine</p>
         <p th:text="'Machine type: ' + ${machine.getType()}" class = text-edm-list>machine</p>
         <p th:text="'Machine model: ' + ${machine.getTitle()}" class = text-edm-list>machine model</p>
         <p th:text="'Machine firm: ' + ${machine.getFirm()}" class = text-edm-list>machine firm</p>
 
-        <form  th:action="@{/edmMachine/{id}(id=${machine.getId()})}">
-            <button type="submit" class="button">Show</button>
+        <form  th:action="@{/edmMachine/{id}/edit(id=${machine.getId()})}">
+            <button type="submit" class="button">Edit</button>
         </form>
 
     </div>
-    <form  action="edmMachine/new">
-        <button type="submit" class="button">Add new machine</button>
+    <form  th:method="GET" th:action="@{/edmMachine}">
+        <button type="submit" class="button">Back to list</button>
     </form>
 
 </div>
-
-
 
 </body>
 </html>
