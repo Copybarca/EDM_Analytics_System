@@ -12,11 +12,11 @@
 
 <div class="div-text-left">
     <h5 th:text="'The serial number of the machine  ' + ${machine.getSerialNumber()}" class="center">Serial number of the machine</h5>
-    <div class = div-edm-list>
+    <div class = div-index-list>
 
-        <p th:text="'Machine type: ' + ${machine.getType()}" class = text-edm-list>machine</p>
-        <p th:text="'Machine model: ' + ${machine.getTitle()}" class = text-edm-list>machine model</p>
-        <p th:text="'Machine firm: ' + ${machine.getFirm()}" class = text-edm-list>machine firm</p>
+        <p th:text="'Machine type: ' + ${machine.getType()}" class = text-list>machine</p>
+        <p th:text="'Machine model: ' + ${machine.getTitle()}" class = text-list>machine model</p>
+        <p th:text="'Machine firm: ' + ${machine.getFirm()}" class = text-list>machine firm</p>
 
         <form  th:action="@{/edmMachine/{id}/edit(id=${machine.getId()})}">
             <button type="submit" class="button">Edit</button>

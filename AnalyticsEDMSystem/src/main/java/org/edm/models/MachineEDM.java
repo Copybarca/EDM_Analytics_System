@@ -1,13 +1,13 @@
 package org.edm.models;
 
 import jakarta.persistence.*;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @Component("machineedm")
+@Scope("prototype")
 @Table(name = "machines")
 public class MachineEDM {
     @Id
@@ -27,8 +27,7 @@ public class MachineEDM {
     @Column(name="serial_number")
     private String serialNumber;
 
-    public  MachineEDM(){
-    }
+    public  MachineEDM(){}
 
     public MachineEDM(String title, String firm, String type, String serialNumber) {
         this.title = title;

@@ -5,13 +5,12 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
 import org.edm.models.MachineEDM;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import javax.annotation.PreDestroy;
 import java.util.List;
 
 @Component
@@ -23,14 +22,9 @@ public class MachineEDMDAO {
     //factory.close() тут не делается. А лучше бы его делать, когда соединение больше не нужно(при закрытии приложения на сервере?)
     Session session = null;
     MachineEDM mac;
-
     @Autowired
     public MachineEDMDAO(MachineEDM mac) {
         this.mac = mac;
-    }
-    @PreDestroy
-    public void destroy(){
-
     }
     public List<MachineEDM> index(){// вытягивает из бд все объекы данного типа
         List<MachineEDM> list= null;
@@ -38,6 +32,7 @@ public class MachineEDMDAO {
         try{
             session = factory.getCurrentSession();
             session.beginTransaction();
+
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<MachineEDM> cq=cb.createQuery(MachineEDM.class);
             Root<MachineEDM> rootEntry = cq.from(MachineEDM.class);
@@ -48,7 +43,7 @@ public class MachineEDMDAO {
             session.getTransaction().commit();
 
 
-        }catch(Exception e){
+        }catch(HibernateException e){
             e.printStackTrace();
         }
         return list;
@@ -58,8 +53,8 @@ public class MachineEDMDAO {
     public  void save(MachineEDM machineEDM){// сохраняет объект в бд
 
         try{
-            session = factory.getCurrentSession();
             MachineEDM edm = new MachineEDM(machineEDM.getTitle(), machineEDM.getFirm(), machineEDM.getType(), machineEDM.getSerialNumber());
+            session = factory.getCurrentSession();
             session.beginTransaction();
             session.persist(edm);
             session.getTransaction().commit();
@@ -78,7 +73,7 @@ public class MachineEDMDAO {
             session.getTransaction().commit();
 
 
-        }catch(Exception e){
+        }catch(HibernateException e){
             e.printStackTrace();
         }
         return machine;
@@ -97,7 +92,7 @@ public class MachineEDMDAO {
             session.getTransaction().commit();
 
 
-        }catch(Exception e){
+        }catch(HibernateException e){
             e.printStackTrace();
         }
     }

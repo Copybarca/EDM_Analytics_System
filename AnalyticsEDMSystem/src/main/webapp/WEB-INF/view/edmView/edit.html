@@ -53,7 +53,7 @@
         <button type="submit" class="button">Edit</button>
 
     </form>
-    <form  th:method="GET" th:action="@{/edmMachine}">
+    <form  th:method="GET" th:action="@{/edmMachine/{id}(id=${machine.getId()})}">
         <button type="submit" class="button">Back to list</button>
     </form>
 </div>

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="body">
+
+<div class="wrapper-nav-bar">
+    <h1>EDM Analytic System</h1>
+</div>
+
+
+<div class="div-text-left">
+    <h5 class="center">Edit employees parameters</h5>
+    <form th:method="PATCH" th:action="@{/employee/{id}(id=${employee.getId()})}" th:object="${employee}">
+
+        <div style="margin-bottom: 2px">
+            <label for="name">Enter name</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{name}" id="name" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Name  errors</div>
+
+        <div style="margin-bottom: 2px">
+            <label for="surname">Enter surname</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{surname}" id="surname" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Surname  errors</div>
+
+        <div style="margin-bottom: 2px">
+            <label for="seniority">Enter seniority</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{seniority}" id="seniority" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('seniority')}" th:errors="*{seniority}">Seniority  errors</div>
+
+        <div style="margin-bottom: 2px">
+            <label for="salary">Enter salary</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{salary}" id="salary" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}">Salary errors</div>
+
+        <div style="margin-bottom: 2px">
+            <label for="post">Enter post</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{post}" id="post" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('post')}" th:errors="*{post}">Post errors</div>
+
+        <div style="margin-bottom: 2px">
+            <label for="age">Enter age</label>
+        </div>
+        <div style="margin-bottom: 10px">
+            <input type="text" th:field="*{age}" id="age" class="form-input">
+        </div>
+        <div style="color:#ea6a47" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Age errors</div>
+
+
+        <button type="submit" class="button">Edit</button>
+
+    </form>
+    <form  th:method="GET" th:action="@{/employee/{id}(id=${employee.getId()})}">
+        <button type="submit" class="button">Back to list</button>
+    </form>
+</div>
+
+
+
+</body>
+</html>

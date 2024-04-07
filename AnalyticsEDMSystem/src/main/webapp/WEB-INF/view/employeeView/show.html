@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="assets/css/style.css"/>
+</head>
+<body class="body">
+<div class="wrapper-nav-bar">
+    <h1>EDM Analytic System</h1>
+</div>
+
+<div class=div-text-left>
+    <h5 th:text="'Employee: ' + ${employee.getName()} + ' ' + ${employee.getSurname()}" class="center"> Name surname of employee</h5>
+
+    <div class = div-index-list>
+        <p th:text="'Seniority: ' + ${employee.getSeniority()} " class =text-list></p>
+        <p th:text="'Salary: ' + ${employee.getSalary()} " class =text-list></p>
+        <p th:text="'Post: ' + ${employee.getPost()} " class =text-list></p>
+        <p th:text="'Age: ' + ${employee.getAge()} " class =text-list></p>
+        <form  th:action="@{/employee/{id}/edit(id=${employee.getId()})}">
+            <button type="submit" class="button">Edit</button>
+        </form>
+    </div>
+    <form  th:method="GET" th:action="@{/employee}">
+        <button type="submit" class="button">Back to list</button>
+    </form>
+
+</div>
+
+</body>
+</html>
