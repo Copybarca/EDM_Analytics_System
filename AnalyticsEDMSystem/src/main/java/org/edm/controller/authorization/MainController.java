@@ -18,4 +18,10 @@ public class MainController {
         public String info(){
             return "login/info";
         }
+
+        @GetMapping("/home")
+        public String getHome(){
+            return "homeView/homeVer2";
+
+        }
 }

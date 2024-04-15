@@ -6,6 +6,11 @@
 .text-list{
     margin: 1px;
 }
+.label-nav-bar{
+    margin: 1px;
+    padding: 1px;
+    border: 1px;
+}
 .text{
     color: #202020;
 }
