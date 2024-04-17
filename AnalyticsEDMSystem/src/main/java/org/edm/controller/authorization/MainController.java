@@ -21,7 +21,7 @@ public class MainController {
 
         @GetMapping("/home")
         public String getHome(){
-            return "homeView/homeVer2";
+            return "homeView/homeVer3";
 
         }
 }

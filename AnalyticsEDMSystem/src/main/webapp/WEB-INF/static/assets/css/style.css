@@ -5,11 +5,15 @@
 }
 .text-list{
     margin: 1px;
+    font-family: "Times New Roman", "serif";
+    font-size: 20px;
 }
 .label-nav-bar{
     margin: 1px;
     padding: 1px;
-    border: 1px;
+    font-family: "Times New Roman", serif;
+    font-size: 24pt;
+    font-weight: bold;
 }
 .text{
     color: #202020;
@@ -26,6 +30,8 @@
     padding: 10px 20px;
     display: flex;
     justify-content: center;
+    height: 70px;
+    max-height: 70px;
 }
 .center {
     display: flex;

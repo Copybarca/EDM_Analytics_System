@@ -32,7 +32,6 @@ public class Employee {
     @Column(name="salary")
     private String salary;
     @Size(min = 1,max = 45, message = "In range of 1 to 45 characters")
-
     @Column(name="post")
     private String post;
 
