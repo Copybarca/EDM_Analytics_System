@@ -21,13 +21,25 @@
         <form  th:action="@{/edmMachine/{id}/edit(id=${machine.getId()})}">
             <button type="submit" class="button">Edit</button>
         </form>
-
     </div>
+
     <form  th:method="GET" th:action="@{/edmMachine}">
         <button type="submit" class="button">Back to list</button>
     </form>
-
 </div>
+
+<div class="div-text-left">
+    <h5 class="center">Sensors of this machine</h5>
+    <div th:each="sensor: ${sensorList}" class = div-index-list>
+        <p th:text="'Machines id : ' + ${sensor.getMachines_id()}" class = text-list>sensor machines id</p>
+        <p th:text="'Sensor title: ' + ${sensor.getTitle()}" class = text-list>sensor name</p>
+
+        <form  th:method="GET" th:action="@{/edmMachine/{id}/{sensor_id}(id = ${machine.getId()}, sensor_id=${sensor.getId()})}">
+            <button type="submit" class="button">Show sensor's indicators</button>
+        </form>
+    </div>
+</div>
+
 
 </body>
 </html>

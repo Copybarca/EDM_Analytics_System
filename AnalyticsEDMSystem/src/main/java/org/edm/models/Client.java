@@ -13,20 +13,20 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
-    int id;
+    private int id;
     @Column(name ="name")
     @Size(min = 1,max = 45, message = "In range of 1 to 45 characters")
-    String name;
+    private String name;
 
     @Column(name = "surname")
     @Size(min = 1,max = 45, message = "In range of 1 to 45 characters")
-    String surname;
+    private String surname;
     @Column(name = "email")
     @Size(min = 1,max = 45, message = "In range of 1 to 45 characters")
-    String email;
+    private String email;
     @Column(name = "telephone")
     @Size(min = 1,max = 45, message = "In range of 1 to 45 characters")
-    String telephone;
+    private String telephone;
 
     public Client() {
 

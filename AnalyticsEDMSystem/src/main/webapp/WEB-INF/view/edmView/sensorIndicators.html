@@ -89,7 +89,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="e/mployee" class="nav-link text-white">
+                        <a href="/employee" class="nav-link text-white">
                             <svg class="bi d-block mx-auto mb-1" width="24" height="24"><use xlink:href="#people-fill"></use></svg>
                             Employees
                         </a>
@@ -100,48 +100,20 @@
     </div>
 </header>
 
-
 <div class="div-text-left">
-    <form th:method="POST" th:action="@{/clients}" th:object="${client}">
+    <h5 class="center">List of indicators</h5>
+    <div th:each="indicator: ${indicatorsList}" class = div-index-list>
 
-        <div style="margin-bottom: 2px">
-            <label for="name">Enter name</label>
-        </div>
-        <div style="margin-bottom: 10px">
-            <input type="text" th:field="*{name}" id="name" class="form-input">
-        </div>
-        <div style="color:#ea6a47" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name  errors</div>
+        <p th:text="'Data: ' + ${indicator.getData()}" class = text-list>machine</p>
+        <p th:text="'Time: ' + ${indicator.getTime()}" class = text-list>machine</p>
+        <p th:text="'Value: ' + ${indicator.getValue()}" class = text-list>machine model</p>
 
-        <div style="margin-bottom: 2px">
-            <label for="surname">Enter surname</label>
-        </div>
-        <div style="margin-bottom: 10px">
-            <input type="text" th:field="*{surname}" id="surname" class="form-input">
-        </div>
-        <div style="color:#ea6a47" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname  errors</div>
 
-        <div style="margin-bottom: 2px">
-            <label for="email">Enter email</label>
-        </div>
-        <div style="margin-bottom: 10px">
-            <input type="text" th:field="*{email}" id="email" class="form-input">
-        </div>
-        <div style="color:#ea6a47" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email  errors</div>
-
-        <div style="margin-bottom: 2px">
-            <label for="telephone">Enter telephone</label>
-        </div>
-        <div style="margin-bottom: 10px">
-            <input type="text" th:field="*{telephone}" id="telephone" class="form-input">
-        </div>
-        <div style="color:#ea6a47" th:if="${#fields.hasErrors('telephone')}" th:errors="*{telephone}">telephone errors</div>
-
-        <button type="submit" class="button">Add new  client</button>
-
+    </div>
+    <form  th:method="GET" th:action="@{/edmMachine}">
+        <button type="submit" class="button">Back to EDM list</button>
     </form>
-    <form  th:method="GET" th:action="@{/clients}">
-        <button type="submit" class="button">Back to list</button>
-    </form>
+
 </div>
 
 </body>

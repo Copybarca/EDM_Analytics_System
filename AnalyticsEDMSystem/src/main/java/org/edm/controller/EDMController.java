@@ -1,7 +1,10 @@
 package org.edm.controller;
 
 import org.edm.dao.MachineEDMDAO;
+import org.edm.dao.SensorDAO;
+import org.edm.dao.SensorIndicatorDAO;
 import org.edm.models.MachineEDM;
+import org.edm.models.Sensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +19,15 @@ import javax.validation.Valid;
 public class EDMController {
 
     private MachineEDMDAO edmDao;
+    private SensorDAO sensorDAO;
+
+    private SensorIndicatorDAO sensorIndicatorDAO;
+
     @Autowired
-    public EDMController(MachineEDMDAO edmDao){
+    public EDMController(MachineEDMDAO edmDao, SensorDAO sensorDAO, SensorIndicatorDAO sensorIndicatorDAO){
+        this.sensorIndicatorDAO=sensorIndicatorDAO;
         this.edmDao = edmDao;
+        this.sensorDAO=sensorDAO;
     }
 
     @GetMapping()
@@ -29,8 +38,14 @@ public class EDMController {
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model){
         model.addAttribute("machine", edmDao.show(id));
+        model.addAttribute("sensorList",sensorDAO.indexByMachinesId((Integer)id));
         return"edmView/show";
 
+    }
+    @GetMapping("/{id}/{sensor_id}")
+    public String showIndicators(@PathVariable("sensor_id") int sensor_id, Model model){
+        model.addAttribute("indicatorsList",sensorIndicatorDAO.indexBySensorId(sensor_id));
+        return"edmView/sensorIndicators";
     }
 
     @GetMapping("/new")
