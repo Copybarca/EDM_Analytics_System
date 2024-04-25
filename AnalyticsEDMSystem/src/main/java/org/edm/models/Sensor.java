@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "sensors")
-@Component("sensor")
+@Component("sensorBean")
 public class Sensor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
