@@ -4,6 +4,31 @@
     <meta charset="UTF-8">
     <title>EDM Analytic System</title>
     <link rel="stylesheet" href="assets/css/style.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+            Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+        }
+        #threejs-container{
+            position: fixed;
+            display: flex;
+            justify-content: center;
+
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js"></script>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"></script>
+    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
+
+    <script src="https://unpkg.com/fflate@0.8.2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
+
+
 </head>
 <body class="body">
 <div class="wrapper-nav-bar">
@@ -30,6 +55,75 @@
 
 </div>
 
+<div   class="div-text-left-3d">
+    <div id="threejs-container" class="center">
+
+    </div>
+</div>
+
+<script type="module">
+
+    const width = 400
+    const height = 400
+        //window.innerHeight
+    // Scene
+    const scene = new THREE.Scene()
+    scene.background = new THREE.Color('#5d5d5d')
+
+    // Camera
+    const fov = 80 // AKA Field of View
+    const aspect = window.innerWidth / window.innerHeight
+    const near = 0.1 // the near clipping plane
+    const far = 100 // the far clipping plane
+
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far)
+    camera.position.set(-4, 12, 35)
+
+
+    // Renderer
+    const renderer = new THREE.WebGLRenderer()
+    renderer.setSize(400, 400)
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+
+    //Creating3DModel
+    const fbxLoader = new THREE.FBXLoader();
+    let model;
+    fbxLoader.load('/assets/model/cnc.fbx', (object)=>{
+        model = object;
+        scene.add(object);
+    })
+
+    // Creating a cube
+    const geometry = new THREE.BoxGeometry(2, 2, 2)
+    const material = new THREE.MeshBasicMaterial({ wireframe: true })
+    const cube = new THREE.Mesh(geometry, material)
+    scene.add(cube)
+    //light
+    const light = new THREE.DirectionalLight('#ffffff', 100);
+    light.position.set(10,10,10)
+    scene.add(light)
+    //helper
+    let helper = new THREE.CameraHelper(camera);
+    scene.add(helper);
+    // Rendering the scene
+    const container = document.querySelector('#threejs-container')
+    container.append(renderer.domElement)
+    renderer.render(scene, camera)
+    animate()
+    function animate() {
+
+        requestAnimationFrame( animate );
+        cube.rotation.x += 0.00;
+        cube.rotation.y += 0.01;
+        model.rotation.y +=0.01;
+        camera.rotation.x =0;
+        camera.rotation.y =0;
+        camera.rotation.z =0;
+
+        renderer.render( scene, camera );
+
+    }
+</script>
 
 
 </body>
