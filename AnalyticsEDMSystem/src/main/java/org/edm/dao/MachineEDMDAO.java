@@ -85,7 +85,7 @@ public class MachineEDMDAO {
             session.beginTransaction();
             MachineEDM machineToUpdate =session.get(MachineEDM.class, id);
             machineToUpdate.setFirm(machine.getFirm());
-            machineToUpdate.setTitle(machineToUpdate.getTitle());
+            machineToUpdate.setTitle(machine.getTitle());
             machineToUpdate.setType(machine.getType());
             machineToUpdate.setSerialNumber(machine.getSerialNumber());
 

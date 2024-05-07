@@ -63,7 +63,6 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
                         "/WEB-INF/static/assets/css/",
                         "/WEB-INF/static/assets/img/",
                         "/WEB-INF/static/assets/model/"
-
                         );
 
 
