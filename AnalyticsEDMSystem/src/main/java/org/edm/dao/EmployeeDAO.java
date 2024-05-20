@@ -17,22 +17,20 @@ import java.util.List;
 @Component
 public class EmployeeDAO {
 
-    SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(Employee.class)
-            .buildSessionFactory();
+    SessionFactory sessionFactory;
     Session session = null;
 
     Employee employee;
     @Autowired
-    public EmployeeDAO(Employee employee) {
+    public EmployeeDAO(Employee employee, SessionFactory sessionFactory) {
         this.employee = employee;
+        this.sessionFactory = sessionFactory;
     }
     public List<Employee> index(){
         List<Employee> list = null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -45,6 +43,8 @@ public class EmployeeDAO {
             session.getTransaction().commit();
         }catch (HibernateException e ){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
     }
@@ -52,7 +52,7 @@ public class EmployeeDAO {
     public Employee show(int id){
         Employee emp = null;
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             emp = session.get(Employee.class, id);
@@ -60,12 +60,14 @@ public class EmployeeDAO {
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return emp;
     }
     public void update(int id, Employee emp){
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             Employee empToUpdate = session.get(Employee.class,id);
             empToUpdate.setAge(emp.getAge());
@@ -78,19 +80,23 @@ public class EmployeeDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
     public void save(Employee employee){
 
         try{
             Employee emp = new Employee(employee.getName(), employee.getSurname(), employee.getSeniority(), employee.getSalary(), employee.getPost(), employee.getAge());
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             session.persist(emp);
 
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 

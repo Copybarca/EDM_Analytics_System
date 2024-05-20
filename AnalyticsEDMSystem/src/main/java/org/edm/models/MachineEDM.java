@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Component("machineedm")
-@Scope("prototype")
 @Table(name = "machines")
 public class MachineEDM {
     @Id

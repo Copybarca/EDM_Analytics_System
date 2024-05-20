@@ -11,29 +11,28 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Component
 public class ClientDAO {
-    SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(Client.class)
-            .buildSessionFactory();
-    Session session = null;
 
+    SessionFactory sessionFactory;
+    Session session = null;
     Client client;
     @Autowired
-    public ClientDAO(Client client){this.client=client;}
+    public ClientDAO(Client client, SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
+        this.client=client;
+    }
 
     public List<Client> index(){
-        List<Client> list = new ArrayList<>();
+        List<Client> list = null;
 
         try{
-
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
+
+            //List<Client> list2 = session.createQuery("from Client", Client.class).getResultList();
 
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Client> cq = cb.createQuery(Client.class);
@@ -45,6 +44,8 @@ public class ClientDAO {
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
     }
@@ -52,19 +53,21 @@ public class ClientDAO {
     public void save(Client client){
         try{
             Client clientToSave = new Client(client.getName(), client.getSurname(), client.getEmail(), client.getTelephone());
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             session.persist(clientToSave);
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 
     public Client show(int id){
         Client client = null;
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             client = session.get(Client.class,id);
@@ -72,13 +75,15 @@ public class ClientDAO {
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return client;
     }
 
     public void update(int id, Client client){
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             Client clientToUpdate =session.get(Client.class,id);
             clientToUpdate.setName(client.getName());
@@ -89,6 +94,8 @@ public class ClientDAO {
 
         }catch (HibernateException e ){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
 
     }

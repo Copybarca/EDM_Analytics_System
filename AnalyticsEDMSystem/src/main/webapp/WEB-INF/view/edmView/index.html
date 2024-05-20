@@ -23,14 +23,13 @@
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r127/three.min.js"></script>
     <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"></script>
-    <script type="module" src="https://cdnjs.cloudflare.com/ajax/libs/stats.js/r17/Stats.min.js"></script>
     <script type="module" src="https://cdn.jsdelivr.net/npm/three@0.132.2/examples/js/loaders/FBXLoader.js"></script>
-
     <script src="https://unpkg.com/fflate@0.8.2"></script>
     <script src="https://cdn.jsdelivr.net/npm/fflate@0.8.2/umd/index.js"></script>
 
 </head>
 <body >
+
 <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="bootstrap" viewBox="0 0 118 94">
         <title>Bootstrap</title>
@@ -165,18 +164,28 @@
     const renderer = new THREE.WebGLRenderer()
     renderer.setSize(400, 400)
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-
     //Creating3DModel
     const fbxLoader = new THREE.FBXLoader();
     let model;
-    fbxLoader.load('/assets/model/cnc.fbx', (object)=>{
+    fbxLoader.load('/assets/model/edm.fbx', (object)=>{
         model = object;
+        model.scale.z=0.005;
+        model.scale.y=0.005;
+        model.scale.x=0.005;
+        model.position.set(1,15,-2)
         scene.add(object);
     })
     //light
-    const light = new THREE.DirectionalLight('#ffffff', 100);
-    light.position.set(10,10,10)
-    scene.add(light)
+    const light1 = new THREE.DirectionalLight('#828282', 2);
+    const light2 = new THREE.DirectionalLight('#828282', 2);
+    const light3 = new THREE.DirectionalLight('#828282', 2);
+    light1.position.set(-1,25,-10)
+    light2.position.set(15,-6,4)
+    light3.position.set(-40,20,10)
+
+    scene.add(light1)
+    scene.add(light2)
+    scene.add(light3)
     //helper
     let helper = new THREE.CameraHelper(camera);
     scene.add(helper);
@@ -187,10 +196,7 @@
     animate()
     function animate() {
         requestAnimationFrame( animate );
-        model.rotation.y +=0.01;
-        camera.rotation.x =0;
-        camera.rotation.y =0;
-        camera.rotation.z =0;
+        model.rotation.y +=0.005;
         renderer.render( scene, camera );
     }
 </script>

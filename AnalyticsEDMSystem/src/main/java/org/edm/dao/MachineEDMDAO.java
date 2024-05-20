@@ -15,22 +15,20 @@ import java.util.List;
 
 @Component
 public class MachineEDMDAO {
-    SessionFactory factory = new Configuration() //Лучше создать отдельный класс и конфигать его внутри. А юда просто внедрять
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(MachineEDM.class)
-            .buildSessionFactory();
+    SessionFactory  sessionFactory;
     //factory.close() тут не делается. А лучше бы его делать, когда соединение больше не нужно(при закрытии приложения на сервере?)
     Session session = null;
     MachineEDM mac;
     @Autowired
-    public MachineEDMDAO(MachineEDM mac) {
+    public MachineEDMDAO(MachineEDM mac, SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
         this.mac = mac;
     }
     public List<MachineEDM> index(){// вытягивает из бд все объекы данного типа
         List<MachineEDM> list= null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -45,6 +43,8 @@ public class MachineEDMDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
 
@@ -54,19 +54,21 @@ public class MachineEDMDAO {
 
         try{
             MachineEDM edm = new MachineEDM(machineEDM.getTitle(), machineEDM.getFirm(), machineEDM.getType(), machineEDM.getSerialNumber());
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             session.persist(edm);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
 
     }
     public MachineEDM show(int id){//Вытягивает из бд данные для объекта и возвращает объект
         MachineEDM machine = null;
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             machine = session.get(MachineEDM.class, id);
 
@@ -75,13 +77,15 @@ public class MachineEDMDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return machine;
     }
 
     public void update(int id, MachineEDM machine){
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             MachineEDM machineToUpdate =session.get(MachineEDM.class, id);
             machineToUpdate.setFirm(machine.getFirm());
@@ -94,6 +98,8 @@ public class MachineEDMDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 

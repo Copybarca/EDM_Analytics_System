@@ -19,21 +19,19 @@ import java.util.List;
 @Component
 public class SensorIndicatorDAO {
 
-    SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(SensorIndicator.class)
-            .buildSessionFactory();
+    SessionFactory sessionFactory;
     Session session = null;
     SensorIndicator sensorIndicator;
     @Autowired
-    public SensorIndicatorDAO(SensorIndicator sensorIndicator){
+    public SensorIndicatorDAO(SensorIndicator sensorIndicator,SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
         this.sensorIndicator= sensorIndicator;
     }
     public List<SensorIndicator> indexBySensorId(int sensorId){
         List<SensorIndicator> list = null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -49,6 +47,8 @@ public class SensorIndicatorDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
     }

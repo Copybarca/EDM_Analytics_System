@@ -21,16 +21,13 @@ import java.util.List;
 
 @Component
 public class DetailDAO {
-    SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(Detail.class)
-            .buildSessionFactory();
+    SessionFactory sessionFactory;
     Session session = null;
-
     Detail detail;
 
     @Autowired
-    public DetailDAO(Detail detail) {
+    public DetailDAO(Detail detail, SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
         this.detail = detail;
     }
 
@@ -39,7 +36,7 @@ public class DetailDAO {
 
         try{
             System.out.println("Началось");
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             System.out.println("Фабрика создана");
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -56,6 +53,8 @@ public class DetailDAO {
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
     }
@@ -63,19 +62,21 @@ public class DetailDAO {
     public void save(Detail detail){
         try{
             Detail detailToSave = new Detail(detail.getMachines_id(), detail.getOrders_id(), detail.getDate(), detail.getQuality());
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             session.persist(detailToSave);
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 
     public Detail show(int id){
         Detail detail = null;
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             detail = session.get(Detail.class,id);
@@ -83,13 +84,15 @@ public class DetailDAO {
             session.getTransaction().commit();
         }catch (HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return detail;
     }
 
     public void update(int id, Detail detail){
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             Detail detailToUpdate =session.get(Detail.class,id);
             detailToUpdate.setMachines_id(detail.getMachines_id());
@@ -100,13 +103,15 @@ public class DetailDAO {
 
         }catch (HibernateException e ){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
     public List<Detail> indexByMachinesId(Integer machinesId){// вытягивает из бд все объекы данного типа
         List<Detail> list= null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -122,6 +127,8 @@ public class DetailDAO {
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
 

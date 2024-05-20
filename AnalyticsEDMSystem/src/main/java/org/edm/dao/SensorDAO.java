@@ -21,14 +21,12 @@ import java.util.Queue;
 @Component
 public class SensorDAO {
 
-    SessionFactory factory = new Configuration()
-            .configure("hibernate.cfg.xml")
-            .addAnnotatedClass(Sensor.class)
-            .buildSessionFactory();
+    SessionFactory sessionFactory;
     Session session = null;
     private Sensor sensor;
     @Autowired
-    public SensorDAO (Sensor sensor){
+    public SensorDAO (Sensor sensor, SessionFactory sessionFactory){
+        this.sessionFactory = sessionFactory;
         this.sensor=sensor;
     }
 
@@ -36,7 +34,7 @@ public class SensorDAO {
         List<Sensor> list= null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder cb = session.getCriteriaBuilder();
@@ -51,6 +49,8 @@ public class SensorDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
 
@@ -60,19 +60,21 @@ public class SensorDAO {
 
         try{
             Sensor sensorToSave = new Sensor(sensor.getMachines_id(), sensor.getTitle());
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
             session.persist(sensorToSave);
             session.getTransaction().commit();
         }catch(Exception e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
 
     }
     public Sensor show(int id){//Вытягивает из бд данные для объекта и возвращает объект
         Sensor sensor = null;
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
 
             session.beginTransaction();
             sensor = session.get(Sensor.class, id);
@@ -82,6 +84,8 @@ public class SensorDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return sensor;
     }
@@ -90,7 +94,7 @@ public class SensorDAO {
         List<Sensor> list= null;
 
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
@@ -106,13 +110,15 @@ public class SensorDAO {
             session.getTransaction().commit();
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
         return list;
 
     }
     public void update(int id, Sensor sensor){
         try{
-            session = factory.getCurrentSession();
+            session = sessionFactory.getCurrentSession();
             session.beginTransaction();
 
             Sensor machineToUpdate =session.get(Sensor.class, id);
@@ -124,6 +130,8 @@ public class SensorDAO {
 
         }catch(HibernateException e){
             e.printStackTrace();
+        }finally {
+            session.close();
         }
     }
 

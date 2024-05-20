@@ -1,11 +1,11 @@
 package org.edm.config;
 
+import org.edm.dao.DetailDAO;
+import org.edm.models.*;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -36,6 +36,20 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setEnableSpringELCompiler(true);
         return templateEngine;
+    }
+    @Bean
+    public SessionFactory sessionFactory(){
+        SessionFactory sessionFactory = new org.hibernate.cfg.Configuration()
+                .configure("hibernate.cfg.xml")
+                .addAnnotatedClass(Client.class)
+                .addAnnotatedClass(MachineEDM.class)
+                .addAnnotatedClass(DetailDAO.class)
+                .addAnnotatedClass(Employee.class)
+                .addAnnotatedClass(Sensor.class)
+                .addAnnotatedClass(SensorIndicator.class)
+                .addAnnotatedClass(MachineIndicator.class)
+                .buildSessionFactory();
+        return sessionFactory;
     }
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry){
