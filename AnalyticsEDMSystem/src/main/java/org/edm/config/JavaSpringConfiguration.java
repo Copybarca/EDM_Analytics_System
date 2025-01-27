@@ -1,6 +1,5 @@
 package org.edm.config;
 
-import org.edm.dao.DetailDAO;
 import org.edm.models.*;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
     public JavaSpringConfiguration(ApplicationContext applicationContext){
         this.applicationContext=applicationContext;
     }
-
     @Bean
     public SpringResourceTemplateResolver templateResolver(){
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
@@ -43,7 +41,7 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
                 .configure("hibernate.cfg.xml")
                 .addAnnotatedClass(Client.class)
                 .addAnnotatedClass(MachineEDM.class)
-                .addAnnotatedClass(DetailDAO.class)
+                .addAnnotatedClass(Detail.class)
                 .addAnnotatedClass(Employee.class)
                 .addAnnotatedClass(Sensor.class)
                 .addAnnotatedClass(SensorIndicator.class)

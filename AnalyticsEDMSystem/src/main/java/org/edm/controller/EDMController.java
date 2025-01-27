@@ -4,14 +4,11 @@ import org.edm.dao.MachineEDMDAO;
 import org.edm.dao.SensorDAO;
 import org.edm.dao.SensorIndicatorDAO;
 import org.edm.models.MachineEDM;
-import org.edm.models.Sensor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import javax.naming.Binding;
 import javax.validation.Valid;
 
 @Controller

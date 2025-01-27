@@ -1,8 +1,10 @@
 package org.edm.models;
 
 import jakarta.persistence.*;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
 
+import javax.swing.*;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -74,4 +76,5 @@ public class Client {
     public String getTelephone() {
         return telephone;
     }
+
 }
