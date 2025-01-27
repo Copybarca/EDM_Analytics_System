@@ -5,6 +5,9 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.*;
+import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -19,6 +22,16 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
     @Autowired
     public JavaSpringConfiguration(ApplicationContext applicationContext){
         this.applicationContext=applicationContext;
+    }
+    @Bean
+    public RedisConnectionFactory redisConnectionFactory(){// предоставляет интерфейс для создания соединения с редис
+        return new LettuceConnectionFactory("localhost",6379);
+    }
+    @Bean
+    public RedisTemplate<String,Object> redisTemplate(){
+        RedisTemplate<String,Object> template = new RedisTemplate<>();// RedisTemplate - это АПИ для взаимодействия с бд - сохранить достать и т д
+        template.setConnectionFactory(redisConnectionFactory());
+        return template;
     }
     @Bean
     public SpringResourceTemplateResolver templateResolver(){

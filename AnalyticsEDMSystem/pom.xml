@@ -6,6 +6,8 @@
   <packaging>war</packaging>
   <properties>
           <spring.version>5.2.1.RELEASE</spring.version>
+    <!-- Spring Data Redis 2.2.x  была разработана для работы с Spring Framework 5.2.x-->
+          <spring_redis.version>2.2.6.RELEASE</spring_redis.version>
   </properties>
 
   <version>1.0-SNAPSHOT</version>
@@ -61,6 +63,13 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/org.springframework.data/spring-data-redis -->
+    <dependency>
+      <groupId>org.springframework.data</groupId>
+      <artifactId>spring-data-redis</artifactId>
+      <version>${spring_redis.version}</version>
+    </dependency>
+
     <!-- Spring Security-->
     <dependency>
       <groupId>org.springframework.security</groupId>
