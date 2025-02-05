@@ -6,11 +6,12 @@ import org.springframework.stereotype.Component;
 
 import javax.swing.*;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "clients")
 @Component("client")
-public class Client {
+public class Client implements Serializable{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,4 +78,14 @@ public class Client {
         return telephone;
     }
 
+    @Override
+    public String toString() {
+        return "Client{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", telephone='" + telephone + '\'' +
+                '}';
+    }
 }

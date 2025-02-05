@@ -8,6 +8,7 @@ import org.springframework.context.annotation.*;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.web.servlet.config.annotation.*;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -31,6 +32,10 @@ public class JavaSpringConfiguration implements WebMvcConfigurer{
     public RedisTemplate<String,Object> redisTemplate(){
         RedisTemplate<String,Object> template = new RedisTemplate<>();// RedisTemplate - это АПИ для взаимодействия с бд - сохранить достать и т д
         template.setConnectionFactory(redisConnectionFactory());
+
+        template.setKeySerializer(new StringRedisSerializer());
+        template.setValueSerializer(new StringRedisSerializer());
+
         return template;
     }
     @Bean

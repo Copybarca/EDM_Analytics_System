@@ -1,24 +1,41 @@
 package org.edm.controller;
 
 import org.edm.dao.ClientDAO;
+import org.edm.loggerRedis.RedisLogger;
 import org.edm.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Controller()
 @RequestMapping("/clients")
 public class ClientController {
     private ClientDAO clientDAO;
+    private RedisLogger redisLogger;
     @Autowired
-    public ClientController(ClientDAO clientDAO){this.clientDAO=clientDAO;}
+    public ClientController(ClientDAO clientDAO, RedisLogger redisLogger){
+        this.clientDAO=clientDAO;
+        this.redisLogger = redisLogger;
+    }
     @GetMapping()
     public String index(Model model){
-        model.addAttribute("clientList",clientDAO.index());
+        List<Client> list = clientDAO.index();
+        model.addAttribute("clientList",list);
+
+        for(Client ob: list){
+            String name = ob.getName();
+            String info = ob.toString();
+            redisLogger.saveString(name,info,100);
+        }
+
         return"clientsView/index";
     }
     @GetMapping("/{id}")

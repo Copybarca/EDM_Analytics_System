@@ -69,7 +69,12 @@
       <artifactId>spring-data-redis</artifactId>
       <version>${spring_redis.version}</version>
     </dependency>
-
+    <!-- https://mvnrepository.com/artifact/io.lettuce/lettuce-core -->
+    <dependency>
+      <groupId>io.lettuce</groupId>
+      <artifactId>lettuce-core</artifactId>
+      <version>6.5.3.RELEASE</version>
+    </dependency>
     <!-- Spring Security-->
     <dependency>
       <groupId>org.springframework.security</groupId>
