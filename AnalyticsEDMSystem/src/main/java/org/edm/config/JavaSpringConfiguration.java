@@ -14,6 +14,7 @@ import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 @ComponentScan("org.edm")
 @PropertySource("classpath:application.properties")
 @EnableWebMvc
+@EnableAspectJAutoProxy
 public class JavaSpringConfiguration implements WebMvcConfigurer{
     private final ApplicationContext applicationContext;
     @Autowired

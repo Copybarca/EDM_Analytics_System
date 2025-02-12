@@ -1,5 +1,6 @@
 package org.edm.controller;
 
+import org.edm.aop.timeLogging.annotations.LogMethodExecutionTime;
 import org.edm.dao.ClientDAO;
 import org.edm.models.Client;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ public class ClientController {
     private ClientDAO clientDAO;
     @Autowired
     public ClientController(ClientDAO clientDAO){this.clientDAO=clientDAO;}
+    @LogMethodExecutionTime
     @GetMapping()
     public String index(Model model){
         model.addAttribute("clientList",clientDAO.index());
